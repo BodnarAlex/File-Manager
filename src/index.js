@@ -1,10 +1,9 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
-import { addFile } from "./modules/fileRun/index.js";
+import { addFile, removeFile } from "./modules/fileRun/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
 import process from "process";
-import path from "path";
 
 let rl = readline.createInterface(process.stdin, process.stdout);
 
@@ -49,8 +48,10 @@ const start = async () => {
                     }
                     break;
                 case "add":
-
                     addFile(mainPath, option);
+                    break;
+                case "rm":
+                    removeFile(mainPath, option);
                     break;
                 default:
                     console.log("Invalid input");
