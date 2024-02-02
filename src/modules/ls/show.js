@@ -5,22 +5,26 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const pathToCatalog = path.join(__dirname, "..", "..", "files");
 
-console.log(pathToCatalog);
 const showTable = async () => {
     try {
-        let res =[];
-        const files = await fs.readdir(pathToCatalog);
-        console.log(files);
+
+        let resCatalog = [];
+        let resFiles = [];
+        const files = await fs.readdir(pathToCatalog, { withFileTypes: true , recursive: true});
         files.forEach(file => {
-            res.push({"Name": file, "Type": "file"});
+            if (file.isFile())
+                resFiles.push(file.name);
+            else
+                resCatalog.push(file.name);
         });
-        console.log(res);
-        console.table(res);
+        resFiles = resFiles.sort().map((x)=>x = {"Name": x, "Type": "file"});
+        resCatalog = resCatalog.sort().map((x)=>x = {"Name": x, "Type": "directory"});;
+        resCatalog.push(...resFiles);
+        console.table(resCatalog);
     } catch {
         throw new Error("Operation failed");
     }
 };
-await showTable();
 
 export {
     showTable
