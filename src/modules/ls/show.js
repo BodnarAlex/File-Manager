@@ -2,15 +2,12 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const pathToCatalog = path.join(__dirname, "..", "..", "files");
-
-const showTable = async () => {
+const showTable = async (__dirname) => {
     try {
 
         let resCatalog = [];
         let resFiles = [];
-        const files = await fs.readdir(pathToCatalog, { withFileTypes: true , recursive: true});
+        const files = await fs.readdir(__dirname, { withFileTypes: true , recursive: true});
         files.forEach(file => {
             if (file.isFile())
                 resFiles.push(file.name);
