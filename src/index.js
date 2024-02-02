@@ -1,4 +1,5 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
+import { addFile } from "./modules/fileRun/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -21,17 +22,17 @@ const start = async () => {
             let command = "";
             let option = "";
 
-            if(text.includes(" ")){
+            if (text.includes(" ")) {
                 command = text.split(" ")[0];
                 option = text.split(" ")[1];
             }
-            else{
+            else {
                 command = text;
             }
-
+            let mainPath = process.cwd();
             switch (command) {
                 case "ls":
-                    showTable(process.cwd());
+                    showTable(mainPath);
                     break;
                 case "up":
                     try {
@@ -46,6 +47,10 @@ const start = async () => {
                     } catch (err) {
                         console.error("Invalid input");
                     }
+                    break;
+                case "add":
+
+                    addFile(mainPath, option);
                     break;
                 default:
                     console.log("Invalid input");
