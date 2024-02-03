@@ -4,6 +4,7 @@ import { getEol, getCpus, gethomedir, getusername, getArchitecture } from "./mod
 import { showTable } from "./modules/ls/show.js";
 import { calculateHash } from "./modules/hash/index.js";
 import { compress, decompress } from "./modules/zlib/index.js";
+import { changeDir } from "./modules/getPath/index.js";
 
 import readline from "readline/promises";
 import process from "process";
@@ -37,18 +38,10 @@ const start = async () => {
                     showTable(mainPath);
                     break;
                 case "up":
-                    try {
-                        process.chdir("..");
-                    } catch (err) {
-                        console.error("Invalid input");
-                    }
+                    changeDir("..");
                     break;
                 case "cd":
-                    try {
-                        process.chdir(option[1]);
-                    } catch (err) {
-                        console.error("Invalid input");
-                    }
+                    changeDir(option[1]);
                     break;
                 case "add":
                     addFile(mainPath, option[1]);
