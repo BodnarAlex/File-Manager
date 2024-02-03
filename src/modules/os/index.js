@@ -8,7 +8,21 @@ const getEol = async () => {
         throw new Error("Operation failed");
     }
 };
-
+const getCpus = async () => {
+    try {
+        let cpus = os.cpus();
+        console.log("Overall amount of CPUS", cpus.length);
+        let res = [];
+        cpus.forEach(item => {
+            let rate = Number(item.speed / 1000) + " GHz";
+            let model = item.model.trim();
+            res.push({"Model": model, "Clock rate": rate});
+        })
+        console.table(res);
+    } catch {
+        throw new Error("Operation failed");
+    }
+};
 const gethomedir = async () => {
     try {
         let homedir = os.homedir();
@@ -28,6 +42,7 @@ const getusername = async () => {
 
 export {
     getEol,
+    getCpus,
     gethomedir,
     getusername
 };
