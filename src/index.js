@@ -4,7 +4,7 @@ import { chooseAction } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/index.js";
 import { calculateHash } from "./modules/hash/index.js";
 import { compress, decompress } from "./modules/zlib/index.js";
-import { changeDir } from "./modules/getPath/index.js";
+import { changeDir } from "./modules/pathManagement/index.js";
 
 import readline from "readline/promises";
 import process from "process";
@@ -12,77 +12,84 @@ import process from "process";
 let rl = readline.createInterface(process.stdin, process.stdout);
 
 const start = async () => {
-    let greeting = await help.getGreeting();
-    let farewall = await help.getfarewall();
-    console.log(greeting);
-    console.log("You are currently in " + process.cwd());
+    await help.getGreeting();
+    await help.getCwdPath(process.cwd());
 
     rl.on('line', (text) => {
         if (text === '.exit') {
             rl.close();
         } else {
-
             let command = "";
-            let option = [""];
-
+            let option = [];
             if (text.includes(" ")) {
                 command = text.split(" ")[0];
-                option = text.split(" ");
-            }
-            else {
+                let regexp = /(?<=["'])[^"']+/gm;
+                option = text.match(regexp);
+                console.log("try", option)
+                if (!option) {
+                    option = text.split(" ").slice(1);
+                } else {
+                    option = option.filter((x, index) => index % 2 === 0);
+                }
+            } else {
                 command = text;
             }
+
             let mainPath = process.cwd();
+            console.log("command = ", command);
+            console.log("option = ", option);
+
             switch (command) {
                 case "ls":
+                    console.log("ls")
                     showTable(mainPath);
                     break;
                 case "up":
                     changeDir("..");
                     break;
                 case "cd":
-                    changeDir(option[1]);
+                    changeDir(option[0]);
                     break;
                 case "add":
-                    action.addFile(mainPath, option[1]);
+                    action.addFile(mainPath, option[0]);
                     break;
                 case "cat":
-                    action.readFile(mainPath, option[1]);
+                    action.readFile(mainPath, option[0]);
                     break;
                 case "rn":
-                    action.renameFile(mainPath, option[1], option[2]);
+                    action.renameFile(mainPath, option[0], option[1]);
                     break;
                 case "rm":
-                    action.removeFile(mainPath, option[1]);
+                    action.removeFile(mainPath, option[0]);
                     break;
                 case "cp":
-                    action.copyFile(mainPath, option[1], option[2]);
+                    action.copyFile(mainPath, option[0], option[1]);
                     break;
                 case "mv":
-                    action.moveFile(mainPath, option[1], option[2]);
+                    action.moveFile(mainPath, option[0], option[1]);
                     break;
                 case "hash":
-                    calculateHash(mainPath, option[1]);
+                    calculateHash(mainPath, option[0]);
                     break;
                 case "compress":
-                    compress(mainPath, option[1], option[2]);
+                    compress(mainPath, option[0], option[1]);
                     break;
                 case "decompress":
-                    decompress(mainPath, option[1], option[2]);
+                    decompress(mainPath, option[0], option[1]);
                     break;
                 case "os":
-                    chooseAction(option[1]);
+                    chooseAction(option[0]);
                     break;
                 default:
                     console.error("Invalid input");
                     break;
             }
-            console.log("You are currently in " + process.cwd());
+            help.getCwdPath(process.cwd());
         }
     });
 
     rl.on('close', () => {
-        console.log(farewall);
+        help.getfarewall();
     });
 };
 

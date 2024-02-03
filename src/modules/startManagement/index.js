@@ -11,17 +11,22 @@ const getUserName = async () => {
 const getGreeting = async () => {
     let userName = await getUserName();
     let startPhrase = `Welcome to the File Manager, ${userName}!\n`;
-    return(startPhrase);
+    console.log(startPhrase);
 };
 
 const getfarewall = async () => {
     let userName = await getUserName();
     let endPrase = `Thank you for using File Manager, ${userName}, goodbye!\n`;
-    return(endPrase);
+    console.log(endPrase);
+};
+
+const getCwdPath = async (path) => {
+    console.log("You are currently in " + path);
 };
 
 export default {
     getUserName,
     getGreeting,
-    getfarewall
+    getfarewall,
+    getCwdPath,
 };
