@@ -2,46 +2,42 @@ import fs from "fs";
 import path from "path";
 
 const addFile = async (dirname, filename) => {
-    filename += '.txt';
     const PathTo = path.join(dirname, filename);
-    try {
-        await fs.writeFile(PathTo, "", { flag: "wx" });
-    } catch {
-        console.error("Operation failed");
-    }
+
+    fs.writeFile(PathTo, "", { flag: "wx" }, (err) => {
+        if (err) console.error("Operation failed");
+    });
 };
 
 const readFile = async (dirname, filename) => {
-    filename += '.txt';
     const pathToRead = path.join(dirname, filename);
-    try {
-        const content = await fs.readFile(pathToRead, "utf8");
+
+    const content = fs.readFile(pathToRead, "utf8", (err) => {
+        if (err) console.error("Operation failed");
         console.log(content);
-    } catch {
-        console.error("FS operation failed");
-    }
+    });
 };
 
 const renameFile = async (dirname, fileOld, fileNew) => {
-    fileOld += '.txt';
-    fileNew += '.txt';
     const pathOld = path.resolve(dirname, fileOld);
     const pathNew = path.resolve(dirname, fileNew);
-    try {
-        await fs.rename(pathOld, pathNew);
-    } catch {
-        console.error("FS operation failed");
-    }
+
+    fs.rename(pathOld, pathNew, (err) => {
+        if (err) console.error("Operation failed");
+    });
 };
 
 const copyFile = async (dirname, fileCopy, fileTo) => {
-    fileCopy += '.txt';
     const pathFrom = path.resolve(dirname, fileCopy);
     const pathTo = path.resolve(dirname, fileTo, fileCopy);
 
     try {
-        const copyFrom = fs.createReadStream(pathFrom, "utf-8");
-        const copyTo =  fs.createWriteStream(pathTo, "utf-8");
+        const copyFrom = fs.createReadStream(pathFrom, "utf-8", (err) => {
+            if (err) console.error("Operation failed");
+        });
+        const copyTo = fs.createWriteStream(pathTo, "utf-8", (err) => {
+            if (err) console.error("Operation failed");
+        });
         copyFrom.pipe(copyTo);
     } catch {
         console.error("FS operation failed1");
@@ -49,21 +45,21 @@ const copyFile = async (dirname, fileCopy, fileTo) => {
 };
 
 const removeFile = async (dirname, filename) => {
-    filename += '.txt';
     const pathToDelete = path.join(dirname, filename);
-    try {
-        fs.unlink(pathToDelete);
-    } catch {
-        console.error("FS operation failed2");
-    }
+
+    fs.unlink(pathToDelete, (err) => {
+        if (err) console.error("Operation failed");
+    });
 };
+
 const moveFile = async (dirname, fileCopy, fileTo) => {
     try {
-       copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
+        copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
     } catch {
         console.error("FS operation failed");
     }
 };
+
 export {
     addFile,
     readFile,

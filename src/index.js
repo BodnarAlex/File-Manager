@@ -88,7 +88,7 @@ const start = async () => {
                             getArchitecture();
                             break;
                         default:
-                            console.log("Invalid input");
+                            console.error("Invalid input");
                             break;
                     }
                     break;
@@ -96,7 +96,7 @@ const start = async () => {
                     console.error("Invalid input");
                     break;
             }
-            console.log(process.cwd());
+            console.log("You are currently in " + process.cwd());
         }
     });
 
