@@ -15,7 +15,7 @@ const showTable = async (dirname) => {
         resCatalog = resCatalog.sort().map((x) => x = { "Name": x, "Type": "directory" });;
         console.table([...resCatalog, ...resFiles]);
     } catch {
-        throw new Error("Operation failed");
+        console.error("Operation failed");
     }
 };
 

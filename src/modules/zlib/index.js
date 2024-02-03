@@ -11,7 +11,7 @@ const compress = async (dirname, from, to) => {
     const transform = zlib.createBrotliCompress();
     const streamWrite = fs.createWriteStream(pathToZlib);
 
-    stream.pipeline( streamRead, transform, streamWrite, err => {if (err) throw err;});
+    stream.pipeline( streamRead, transform, streamWrite, err => {if (err) console.error("Operation failed");});
 };
 
 const decompress = async (dirname, from, to) => {
@@ -22,7 +22,7 @@ const decompress = async (dirname, from, to) => {
     const transform = zlib.createBrotliDecompress();
     const streamWrite = fs.createWriteStream(pathToDecompress);
 
-    stream.pipeline( streamRead, transform, streamWrite, err => {if (err) throw err;});
+    stream.pipeline( streamRead, transform, streamWrite, err => {if (err) console.error("Operation failed");});
 };
 
 export {

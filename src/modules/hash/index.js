@@ -13,7 +13,7 @@ const calculateHash = async (dirname, filename) => {
         const resultString = hash.update(data).digest('hex');
         console.log(resultString);
     });
-    stream.on("error", (error) => console.log("Error", error.message));
+    stream.on("error", (error) => console.error("Operation failed"));
 };
 
 export{

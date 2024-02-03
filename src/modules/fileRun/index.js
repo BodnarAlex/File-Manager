@@ -7,7 +7,7 @@ const addFile = async (dirname, filename) => {
     try {
         await fs.writeFile(PathTo, "", { flag: "wx" });
     } catch {
-        throw new Error("Operation failed");
+        console.error("Operation failed");
     }
 };
 
@@ -18,7 +18,7 @@ const readFile = async (dirname, filename) => {
         const content = await fs.readFile(pathToRead, "utf8");
         console.log(content);
     } catch {
-        throw new Error("FS operation failed");
+        console.error("FS operation failed");
     }
 };
 
@@ -30,7 +30,7 @@ const renameFile = async (dirname, fileOld, fileNew) => {
     try {
         await fs.rename(pathOld, pathNew);
     } catch {
-        throw new Error("FS operation failed");
+        console.error("FS operation failed");
     }
 };
 
@@ -44,7 +44,7 @@ const copyFile = async (dirname, fileCopy, fileTo) => {
         const copyTo =  fs.createWriteStream(pathTo, "utf-8");
         copyFrom.pipe(copyTo);
     } catch {
-        throw new Error("FS operation failed1");
+        console.error("FS operation failed1");
     }
 };
 
@@ -54,14 +54,14 @@ const removeFile = async (dirname, filename) => {
     try {
         fs.unlink(pathToDelete);
     } catch {
-        throw new Error("FS operation failed2");
+        console.error("FS operation failed2");
     }
 };
 const moveFile = async (dirname, fileCopy, fileTo) => {
     try {
        copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
     } catch {
-        throw new Error("FS operation failed");
+        console.error("FS operation failed");
     }
 };
 export {

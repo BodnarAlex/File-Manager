@@ -93,7 +93,7 @@ const start = async () => {
                     }
                     break;
                 default:
-                    console.log("Invalid input");
+                    console.error("Invalid input");
                     break;
             }
             console.log(process.cwd());
