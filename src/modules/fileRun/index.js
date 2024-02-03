@@ -1,4 +1,4 @@
-import fs from "fs/promises";
+import fs from "fs";
 import path from "path";
 
 const addFile = async (dirname, filename) => {
@@ -34,6 +34,20 @@ const renameFile = async (dirname, fileOld, fileNew) => {
     }
 };
 
+const copyFile = async (dirname, fileCopy, fileTo) => {
+    fileCopy += '.txt';
+    const pathFrom = path.resolve(dirname, fileCopy);
+    const pathTo = path.resolve(dirname, fileTo, fileCopy);
+
+    try {
+        const copyFrom = fs.createReadStream(pathFrom, "utf-8");
+        const copyTo =  fs.createWriteStream(pathTo, "utf-8");
+        copyFrom.pipe(copyTo);
+    } catch {
+        throw new Error("FS operation failed");
+    }
+};
+
 const removeFile = async (dirname, filename) => {
     filename += '.txt';
     const pathToDelete = path.join(dirname, filename);
@@ -44,9 +58,10 @@ const removeFile = async (dirname, filename) => {
     }
 };
 
-export{
+export {
     addFile,
     readFile,
     renameFile,
+    copyFile,
     removeFile
 }
