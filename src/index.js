@@ -1,5 +1,5 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
-import { addFile, removeFile, readFile } from "./modules/fileRun/index.js";
+import { addFile, removeFile, renameFile, readFile } from "./modules/fileRun/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -19,11 +19,11 @@ const start = async () => {
         } else {
 
             let command = "";
-            let option = "";
+            let option = [""];
 
             if (text.includes(" ")) {
                 command = text.split(" ")[0];
-                option = text.split(" ")[1];
+                option = text.split(" ");
             }
             else {
                 command = text;
@@ -42,19 +42,22 @@ const start = async () => {
                     break;
                 case "cd":
                     try {
-                        process.chdir(option);
+                        process.chdir(option[1]);
                     } catch (err) {
                         console.error("Invalid input");
                     }
                     break;
                 case "add":
-                    addFile(mainPath, option);
+                    addFile(mainPath, option[1]);
                     break;
                 case "cat":
-                    readFile(mainPath, option);
+                    readFile(mainPath, option[1]);
+                    break;
+                case "rn":
+                    renameFile(mainPath, option[1], option[2]);
                     break;
                 case "rm":
-                    removeFile(mainPath, option);
+                    removeFile(mainPath, option[1]);
                     break;
                 default:
                     console.log("Invalid input");

@@ -22,6 +22,18 @@ const readFile = async (dirname, filename) => {
     }
 };
 
+const renameFile = async (dirname, fileOld, fileNew) => {
+    fileOld += '.txt';
+    fileNew += '.txt';
+    const pathOld = path.resolve(dirname, fileOld);
+    const pathNew = path.resolve(dirname, fileNew);
+    try {
+        await fs.rename(pathOld, pathNew);
+    } catch {
+        throw new Error("FS operation failed");
+    }
+};
+
 const removeFile = async (dirname, filename) => {
     filename += '.txt';
     const pathToDelete = path.join(dirname, filename);
@@ -35,5 +47,6 @@ const removeFile = async (dirname, filename) => {
 export{
     addFile,
     readFile,
+    renameFile,
     removeFile
 }
