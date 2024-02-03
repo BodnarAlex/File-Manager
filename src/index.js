@@ -1,5 +1,5 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
-import { addFile, removeFile, renameFile, readFile, copyFile } from "./modules/fileRun/index.js";
+import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from "./modules/fileRun/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -62,7 +62,9 @@ const start = async () => {
                 case "cp":
                     copyFile(mainPath, option[1], option[2]);
                     break;
-
+                case "mv":
+                    moveFile(mainPath, option[1], option[2]);
+                    break;
                 default:
                     console.log("Invalid input");
                     break;

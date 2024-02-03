@@ -44,7 +44,7 @@ const copyFile = async (dirname, fileCopy, fileTo) => {
         const copyTo =  fs.createWriteStream(pathTo, "utf-8");
         copyFrom.pipe(copyTo);
     } catch {
-        throw new Error("FS operation failed");
+        throw new Error("FS operation failed1");
     }
 };
 
@@ -52,16 +52,23 @@ const removeFile = async (dirname, filename) => {
     filename += '.txt';
     const pathToDelete = path.join(dirname, filename);
     try {
-        await fs.unlink(pathToDelete);
+        fs.unlink(pathToDelete);
+    } catch {
+        throw new Error("FS operation failed2");
+    }
+};
+const moveFile = async (dirname, fileCopy, fileTo) => {
+    try {
+       copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
     } catch {
         throw new Error("FS operation failed");
     }
 };
-
 export {
     addFile,
     readFile,
     renameFile,
     copyFile,
-    removeFile
+    removeFile,
+    moveFile
 }
