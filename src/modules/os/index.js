@@ -31,6 +31,7 @@ const getEol = async () => {
         console.error("Operation failed");
     }
 };
+
 const getCpus = async () => {
     try {
         let cpus = os.cpus();
@@ -46,6 +47,7 @@ const getCpus = async () => {
         console.error("Operation failed");
     }
 };
+
 const gethomedir = async () => {
     try {
         let homedir = os.homedir();
@@ -54,6 +56,7 @@ const gethomedir = async () => {
         console.error("Operation failed");
     }
 };
+
 const getusername = async () => {
     try {
         let name = os.userInfo().username;
@@ -62,6 +65,7 @@ const getusername = async () => {
         console.error("Operation failed");
     }
 };
+
 const getArchitecture = async () => {
     try {
         let arch = os.arch()

@@ -15,29 +15,13 @@ const start = async () => {
     await help.getGreeting();
     await help.getCwdPath(process.cwd());
 
-    rl.on('line', (text) => {
+    rl.on('line', async (text) => {
         if (text === '.exit') {
             rl.close();
         } else {
-            let command = "";
-            let option = [];
-            if (text.includes(" ")) {
-                command = text.split(" ")[0];
-                let regexp = /(?<=["'])[^"']+/gm;
-                option = text.match(regexp);
-                console.log("try", option)
-                if (!option) {
-                    option = text.split(" ").slice(1);
-                } else {
-                    option = option.filter((x, index) => index % 2 === 0);
-                }
-            } else {
-                command = text;
-            }
-
+            let command = await help.getCommand(text);
+            let option = await help.getArg(text);
             let mainPath = process.cwd();
-            console.log("command = ", command);
-            console.log("option = ", option);
 
             switch (command) {
                 case "ls":
@@ -89,7 +73,7 @@ const start = async () => {
     });
 
     rl.on('close', () => {
-        help.getfarewall();
+        help.getFarewall();
     });
 };
 

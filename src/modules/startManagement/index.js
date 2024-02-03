@@ -4,8 +4,10 @@ const getUserName = async () => {
     for (let i = 0; i < args.length; i++)
         if (args[i].startsWith("--") && args[i].includes("="))
             userName = args[i].split("=")[1];
+        else
+            userName = "Username";
 
-    return(userName);
+    return (userName);
 };
 
 const getGreeting = async () => {
@@ -14,7 +16,7 @@ const getGreeting = async () => {
     console.log(startPhrase);
 };
 
-const getfarewall = async () => {
+const getFarewall = async () => {
     let userName = await getUserName();
     let endPrase = `Thank you for using File Manager, ${userName}, goodbye!\n`;
     console.log(endPrase);
@@ -24,9 +26,36 @@ const getCwdPath = async (path) => {
     console.log("You are currently in " + path);
 };
 
+const getCommand = async (text) => {
+    let command = "";
+    if (text.includes(" ")) {
+        command = text.split(" ")[0];
+    } else {
+        command = text;
+    }
+    return command;
+};
+
+const getArg = async (text) => {
+    let option = [];
+    if (text.includes(" ")) {
+        let regexp = /(?<=["'])[^"']+/gm;
+        option = text.match(regexp);
+        if (!option) {
+            option = text.split(" ").slice(1);
+        } else {
+            option = option.filter((x, index) => index % 2 === 0);
+        }
+    } else {
+        option = []
+    }
+    return option;
+};
+
 export default {
-    getUserName,
     getGreeting,
-    getfarewall,
+    getFarewall,
     getCwdPath,
+    getCommand,
+    getArg,
 };
