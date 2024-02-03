@@ -1,6 +1,6 @@
-import { getGreeting, getfarewall } from "./modules/greeting/index.js";
+import help from "./modules/startManagement/index.js";
 import action from "./modules/fileManagement/index.js";
-import os from "./modules/os/index.js";
+import { chooseAction } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/index.js";
 import { calculateHash } from "./modules/hash/index.js";
 import { compress, decompress } from "./modules/zlib/index.js";
@@ -12,8 +12,8 @@ import process from "process";
 let rl = readline.createInterface(process.stdin, process.stdout);
 
 const start = async () => {
-    let greeting = await getGreeting();
-    let farewall = await getfarewall();
+    let greeting = await help.getGreeting();
+    let farewall = await help.getfarewall();
     console.log(greeting);
     console.log("You are currently in " + process.cwd());
 
@@ -71,26 +71,7 @@ const start = async () => {
                     decompress(mainPath, option[1], option[2]);
                     break;
                 case "os":
-                    switch (option[1]) {
-                        case "--EOL":
-                            os.getEol();
-                            break;
-                        case "--cpus":
-                            os.getCpus();
-                            break;
-                        case "--homedir":
-                            os.gethomedir();
-                            break;
-                        case "--username":
-                            os.getusername();
-                            break;
-                        case "--architecture":
-                            os.getArchitecture();
-                            break;
-                        default:
-                            console.error("Invalid input");
-                            break;
-                    }
+                    chooseAction(option[1]);
                     break;
                 default:
                     console.error("Invalid input");

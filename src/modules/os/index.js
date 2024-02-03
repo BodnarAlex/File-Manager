@@ -1,5 +1,28 @@
 import os from "os";
 
+const chooseAction = async (option) => {
+    switch (option) {
+        case "--EOL":
+            getEol();
+            break;
+        case "--cpus":
+            getCpus();
+            break;
+        case "--homedir":
+            gethomedir();
+            break;
+        case "--username":
+            getusername();
+            break;
+        case "--architecture":
+            getArchitecture();
+            break;
+        default:
+            console.error("Invalid input");
+            break;
+    }
+};
+
 const getEol = async () => {
     try {
         let eol = JSON.stringify(os.EOL);
@@ -48,7 +71,8 @@ const getArchitecture = async () => {
     }
 };
 
-export default {
+export {
+    chooseAction,
     getEol,
     getCpus,
     gethomedir,

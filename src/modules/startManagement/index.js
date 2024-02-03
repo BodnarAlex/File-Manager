@@ -20,7 +20,7 @@ const getfarewall = async () => {
     return(endPrase);
 };
 
-export {
+export default {
     getUserName,
     getGreeting,
     getfarewall
