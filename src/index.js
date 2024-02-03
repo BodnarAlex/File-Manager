@@ -1,5 +1,6 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
 import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from "./modules/fileRun/index.js";
+import { getEol } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -64,6 +65,13 @@ const start = async () => {
                     break;
                 case "mv":
                     moveFile(mainPath, option[1], option[2]);
+                    break;
+                case "os":
+                    switch(option[1]){
+                        case "--EOL":
+                            getEol();
+                            break;
+                    }
                     break;
                 default:
                     console.log("Invalid input");
