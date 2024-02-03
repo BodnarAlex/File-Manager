@@ -2,6 +2,7 @@ import { getGreeting, getfarewall } from "./modules/greeting/index.js";
 import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from "./modules/fileRun/index.js";
 import { getEol, getCpus, gethomedir, getusername, getArchitecture } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/show.js";
+import { calculateHash } from "./modules/hash/index.js";
 
 import readline from "readline/promises";
 import process from "process";
@@ -65,6 +66,9 @@ const start = async () => {
                     break;
                 case "mv":
                     moveFile(mainPath, option[1], option[2]);
+                    break;
+                case "hash":
+                    calculateHash(mainPath, option[1]);
                     break;
                 case "os":
                     switch (option[1]) {
