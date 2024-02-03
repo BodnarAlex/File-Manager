@@ -53,14 +53,10 @@ const removeFile = async (dirname, filename) => {
 };
 
 const moveFile = async (dirname, fileCopy, fileTo) => {
-    try {
-        copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
-    } catch {
-        console.error("FS operation failed");
-    }
+    copyFile(dirname, fileCopy, fileTo).then(removeFile(dirname, fileCopy));
 };
 
-export {
+export default {
     addFile,
     readFile,
     renameFile,

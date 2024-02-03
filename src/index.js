@@ -1,7 +1,7 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
-import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from "./modules/fileRun/index.js";
-import { getEol, getCpus, gethomedir, getusername, getArchitecture } from "./modules/os/index.js";
-import { showTable } from "./modules/ls/show.js";
+import action from "./modules/fileManagement/index.js";
+import os from "./modules/os/index.js";
+import { showTable } from "./modules/ls/index.js";
 import { calculateHash } from "./modules/hash/index.js";
 import { compress, decompress } from "./modules/zlib/index.js";
 import { changeDir } from "./modules/getPath/index.js";
@@ -44,22 +44,22 @@ const start = async () => {
                     changeDir(option[1]);
                     break;
                 case "add":
-                    addFile(mainPath, option[1]);
+                    action.addFile(mainPath, option[1]);
                     break;
                 case "cat":
-                    readFile(mainPath, option[1]);
+                    action.readFile(mainPath, option[1]);
                     break;
                 case "rn":
-                    renameFile(mainPath, option[1], option[2]);
+                    action.renameFile(mainPath, option[1], option[2]);
                     break;
                 case "rm":
-                    removeFile(mainPath, option[1]);
+                    action.removeFile(mainPath, option[1]);
                     break;
                 case "cp":
-                    copyFile(mainPath, option[1], option[2]);
+                    action.copyFile(mainPath, option[1], option[2]);
                     break;
                 case "mv":
-                    moveFile(mainPath, option[1], option[2]);
+                    action.moveFile(mainPath, option[1], option[2]);
                     break;
                 case "hash":
                     calculateHash(mainPath, option[1]);
@@ -73,19 +73,19 @@ const start = async () => {
                 case "os":
                     switch (option[1]) {
                         case "--EOL":
-                            getEol();
+                            os.getEol();
                             break;
                         case "--cpus":
-                            getCpus();
+                            os.getCpus();
                             break;
                         case "--homedir":
-                            gethomedir();
+                            os.gethomedir();
                             break;
                         case "--username":
-                            getusername();
+                            os.getusername();
                             break;
                         case "--architecture":
-                            getArchitecture();
+                            os.getArchitecture();
                             break;
                         default:
                             console.error("Invalid input");

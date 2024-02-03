@@ -48,7 +48,7 @@ const getArchitecture = async () => {
     }
 };
 
-export {
+export default {
     getEol,
     getCpus,
     gethomedir,
