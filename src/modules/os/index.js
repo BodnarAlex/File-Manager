@@ -17,8 +17,17 @@ const gethomedir = async () => {
         throw new Error("Operation failed");
     }
 };
+const getusername = async () => {
+    try {
+        let name = os.userInfo().username;
+        console.log(name);
+    } catch {
+        throw new Error("Operation failed");
+    }
+};
 
 export {
     getEol,
-    gethomedir
+    gethomedir,
+    getusername
 };
