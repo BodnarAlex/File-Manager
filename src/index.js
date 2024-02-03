@@ -3,6 +3,7 @@ import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from ".
 import { getEol, getCpus, gethomedir, getusername, getArchitecture } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/show.js";
 import { calculateHash } from "./modules/hash/index.js";
+import { compress, decompress } from "./modules/zlib/index.js";
 
 import readline from "readline/promises";
 import process from "process";
@@ -69,6 +70,12 @@ const start = async () => {
                     break;
                 case "hash":
                     calculateHash(mainPath, option[1]);
+                    break;
+                case "compress":
+                    compress(mainPath, option[1], option[2]);
+                    break;
+                case "decompress":
+                    decompress(mainPath, option[1], option[2]);
                     break;
                 case "os":
                     switch (option[1]) {
