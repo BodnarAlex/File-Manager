@@ -8,7 +8,7 @@ const showTable = async (dirname) => {
         files.forEach(file => {
             if (file.isFile())
                 resFiles.push(file.name);
-            else
+            else if (file.isDirectory())
                 resCatalog.push(file.name);
         });
         resFiles = resFiles.sort().map((x) => x = { "Name": x, "Type": "file" });
