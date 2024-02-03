@@ -1,6 +1,6 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
 import { addFile, removeFile, renameFile, readFile, copyFile, moveFile } from "./modules/fileRun/index.js";
-import { getEol, getCpus, gethomedir, getusername } from "./modules/os/index.js";
+import { getEol, getCpus, gethomedir, getusername, getArchitecture } from "./modules/os/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -79,6 +79,9 @@ const start = async () => {
                             break;
                         case "--username":
                             getusername();
+                            break;
+                        case "--architecture":
+                            getArchitecture();
                             break;
                         default:
                             console.log("Invalid input");

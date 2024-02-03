@@ -39,10 +39,19 @@ const getusername = async () => {
         throw new Error("Operation failed");
     }
 };
+const getArchitecture = async () => {
+    try {
+        let arch = os.arch()
+        console.log(arch);
+    } catch {
+        throw new Error("Operation failed");
+    }
+};
 
 export {
     getEol,
     getCpus,
     gethomedir,
-    getusername
+    getusername,
+    getArchitecture
 };
