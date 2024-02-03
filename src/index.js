@@ -1,5 +1,5 @@
 import { getGreeting, getfarewall } from "./modules/greeting/index.js";
-import { addFile, removeFile } from "./modules/fileRun/index.js";
+import { addFile, removeFile, readFile } from "./modules/fileRun/index.js";
 import { showTable } from "./modules/ls/show.js";
 
 import readline from "readline/promises";
@@ -49,6 +49,9 @@ const start = async () => {
                     break;
                 case "add":
                     addFile(mainPath, option);
+                    break;
+                case "cat":
+                    readFile(mainPath, option);
                     break;
                 case "rm":
                     removeFile(mainPath, option);

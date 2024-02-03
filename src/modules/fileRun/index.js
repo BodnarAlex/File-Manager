@@ -11,6 +11,17 @@ const addFile = async (dirname, filename) => {
     }
 };
 
+const readFile = async (dirname, filename) => {
+    filename += '.txt';
+    const pathToRead = path.join(dirname, filename);
+    try {
+        const content = await fs.readFile(pathToRead, "utf8");
+        console.log(content);
+    } catch {
+        throw new Error("FS operation failed");
+    }
+};
+
 const removeFile = async (dirname, filename) => {
     filename += '.txt';
     const pathToDelete = path.join(dirname, filename);
@@ -23,5 +34,6 @@ const removeFile = async (dirname, filename) => {
 
 export{
     addFile,
+    readFile,
     removeFile
 }
