@@ -13,8 +13,8 @@ const addFile = async (dirname, filename) => {
 const readFile = async (dirname, filename) => {
     const pathToRead = path.join(dirname, filename);
     try {
-        const content = fs.createReadStream(pathToRead, { encoding: 'utf-8'});
-        await pipeline(content, process.stdout, {end:false});
+        const content = fs.createReadStream(pathToRead, { encoding: 'utf-8' });
+        await pipeline(content, process.stdout, { end: false });
 
         content.on('error', (err) => {
             console.error("Operation failed");
@@ -65,11 +65,19 @@ const moveFile = async (dirname, fileCopy, fileTo) => {
     }
 };
 
+const checkOptions = async (lenght, needLenhgt) => {
+    if (lenght !== needLenhgt) {
+        console.error("Invalid input");
+        return false;
+    }
+};
+
 export default {
     addFile,
     readFile,
     renameFile,
     copyFile,
     removeFile,
-    moveFile
+    moveFile,
+    checkOptions
 }

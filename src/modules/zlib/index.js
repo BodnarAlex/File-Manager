@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import zlib from "zlib";
-import stream from "stream"
+import stream from "stream";
 
 const compress = async (dirname, from, to) => {
     const pathToCompress = path.resolve(dirname, from);
@@ -16,7 +16,7 @@ const compress = async (dirname, from, to) => {
 
             stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
         } else {
-            console.error("Operation failed");
+            console.error("Invalid input");
         }
     } catch (err) {
         console.error("Operation failed");
@@ -38,7 +38,7 @@ const decompress = async (dirname, from, to) => {
 
             stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
         } else {
-            console.error("Operation failed");
+            console.error("Invalid input");
         }
     } catch (err) {
         console.error("Operation failed");
