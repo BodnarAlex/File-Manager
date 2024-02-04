@@ -23,7 +23,7 @@ const getFarewall = async () => {
 };
 
 const getCwdPath = async (path) => {
-    console.log("You are currently in " + path);
+    console.log("\nYou are currently in " + path );
 };
 
 const getCommand = async (text) => {

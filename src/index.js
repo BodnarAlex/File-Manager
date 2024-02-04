@@ -25,50 +25,49 @@ const start = async () => {
 
             switch (command) {
                 case "ls":
-                    console.log("ls")
-                    showTable(mainPath);
+                    await showTable(mainPath);
                     break;
                 case "up":
-                    changeDir("..");
+                    await changeDir("..");
                     break;
                 case "cd":
-                    changeDir(option[0]);
+                    await changeDir(option[0]);
                     break;
                 case "add":
-                    action.addFile(mainPath, option[0]);
+                    await action.addFile(mainPath, option[0]);
                     break;
                 case "cat":
-                    action.readFile(mainPath, option[0]);
+                    await action.readFile(mainPath, option[0]);
                     break;
                 case "rn":
-                    action.renameFile(mainPath, option[0], option[1]);
+                    await action.renameFile(mainPath, option[0], option[1]);
                     break;
                 case "rm":
-                    action.removeFile(mainPath, option[0]);
+                    await action.removeFile(mainPath, option[0]);
                     break;
                 case "cp":
-                    action.copyFile(mainPath, option[0], option[1]);
+                    await action.copyFile(mainPath, option[0], option[1]);
                     break;
                 case "mv":
-                    action.moveFile(mainPath, option[0], option[1]);
+                    await action.moveFile(mainPath, option[0], option[1]);
                     break;
                 case "hash":
-                    calculateHash(mainPath, option[0]);
+                    await calculateHash(mainPath, option[0]);
                     break;
                 case "compress":
-                    compress(mainPath, option[0], option[1]);
+                    await compress(mainPath, option[0], option[1]);
                     break;
                 case "decompress":
-                    decompress(mainPath, option[0], option[1]);
+                    await decompress(mainPath, option[0], option[1]);
                     break;
                 case "os":
-                    chooseAction(option[0]);
+                    await chooseAction(option[0]);
                     break;
                 default:
                     console.error("Invalid input");
                     break;
             }
-            help.getCwdPath(process.cwd());
+            await help.getCwdPath(process.cwd());
         }
     });
 
