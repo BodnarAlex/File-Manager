@@ -28,40 +28,40 @@ const start = async () => {
                     await showTable(mainPath);
                     break;
                 case "up":
-                    await changeDir("..");
+                    await changeDir([".."]);
                     break;
                 case "cd":
-                    await changeDir(option[0]);
+                    await changeDir(option);
                     break;
                 case "add":
-                    await action.addFile(mainPath, option[0]);
+                    await action.addFile(mainPath, option);
                     break;
                 case "cat":
-                    await action.readFile(mainPath, option[0]);
+                    await action.readFile(mainPath, option);
                     break;
                 case "rn":
-                    await action.renameFile(mainPath, option[0], option[1]);
+                    await action.renameFile(mainPath, option);
                     break;
                 case "rm":
-                    await action.removeFile(mainPath, option[0]);
+                    await action.removeFile(mainPath, option);
                     break;
                 case "cp":
-                    await action.copyFile(mainPath, option[0], option[1]);
+                    await action.copyFile(mainPath, option);
                     break;
                 case "mv":
-                    await action.moveFile(mainPath, option[0], option[1]);
+                    await action.moveFile(mainPath, option);
                     break;
                 case "hash":
-                    await calculateHash(mainPath, option[0]);
+                    await calculateHash(mainPath, option);
                     break;
                 case "compress":
-                    await compress(mainPath, option[0], option[1]);
+                    await compress(mainPath, option);
                     break;
                 case "decompress":
-                    await decompress(mainPath, option[0], option[1]);
+                    await decompress(mainPath, option);
                     break;
                 case "os":
-                    await chooseAction(option[0]);
+                    await chooseAction(option);
                     break;
                 default:
                     console.error("Invalid input");

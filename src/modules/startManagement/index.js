@@ -55,10 +55,20 @@ const getArg = async (text) => {
     return option;
 };
 
+const checkArg = async (len, needLen) => {
+    if (len != needLen) {
+        console.error("Invalid input");
+        return false;
+    } else {
+        return true;
+    }
+};
+
 export default {
     getGreeting,
     getFarewall,
     getCwdPath,
     getCommand,
     getArg,
+    checkArg
 };

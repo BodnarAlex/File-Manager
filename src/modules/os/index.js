@@ -1,25 +1,28 @@
 import os from "os";
+import help from "../startManagement/index.js";
 
 const chooseAction = async (option) => {
-    switch (option) {
-        case "--EOL":
-            getEol();
-            break;
-        case "--cpus":
-            getCpus();
-            break;
-        case "--homedir":
-            gethomedir();
-            break;
-        case "--username":
-            getusername();
-            break;
-        case "--architecture":
-            getArchitecture();
-            break;
-        default:
-            console.error("Invalid input");
-            break;
+    if (await help.checkArg(option.length, 1)) {
+        switch (option[0]) {
+            case "--EOL":
+                getEol();
+                break;
+            case "--cpus":
+                getCpus();
+                break;
+            case "--homedir":
+                gethomedir();
+                break;
+            case "--username":
+                getusername();
+                break;
+            case "--architecture":
+                getArchitecture();
+                break;
+            default:
+                console.error("Invalid input");
+                break;
+        }
     }
 };
 
@@ -40,7 +43,7 @@ const getCpus = async () => {
         cpus.forEach(item => {
             let rate = Number(item.speed / 1000) + " GHz";
             let model = item.model.trim();
-            res.push({"Model": model, "Clock rate": rate});
+            res.push({ "Model": model, "Clock rate": rate });
         })
         console.table(res);
     } catch {

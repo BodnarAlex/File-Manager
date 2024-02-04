@@ -1,8 +1,12 @@
+import help from "../startManagement/index.js"
+
 const changeDir = async (path) => {
-    try {
-        process.chdir(path);
-    } catch (err) {
-        console.error("Invalid input");
+    if (await help.checkArg(path.length, 1)) {
+        try {
+            process.chdir(path[0]);
+        } catch (err) {
+            console.error("Invalid input");
+        }
     }
 };
 

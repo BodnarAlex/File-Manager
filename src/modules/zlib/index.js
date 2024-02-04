@@ -2,46 +2,50 @@ import fs from "fs";
 import path from "path";
 import zlib from "zlib";
 import stream from "stream";
+import help from "../startManagement/index.js";
 
-const compress = async (dirname, from, to) => {
-    const pathToCompress = path.resolve(dirname, from);
-    const nameFile = path.basename(from) + ".br";
-    const pathToZlib = path.resolve(dirname, to, nameFile);
-    try {
-        const stats = fs.statSync(pathToCompress);
-        if (stats.isFile()) {
-            const streamRead = fs.createReadStream(pathToCompress);
-            const transform = zlib.createBrotliCompress();
-            const streamWrite = fs.createWriteStream(pathToZlib);
+const compress = async (dirname, args) => {
+    if (await help.checkArg(args.length, 2)) {
+        const pathToCompress = path.resolve(dirname, args[0]);
+        const nameFile = path.basename(args[0]) + ".br";
+        const pathToZlib = path.resolve(dirname, args[1], nameFile);
+        try {
+            const stats = fs.statSync(pathToCompress);
+            if (stats.isFile()) {
+                const streamRead = fs.createReadStream(pathToCompress);
+                const transform = zlib.createBrotliCompress();
+                const streamWrite = fs.createWriteStream(pathToZlib);
 
-            stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
-        } else {
-            console.error("Invalid input");
+                stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
+            } else {
+                console.error("Invalid input");
+            }
+        } catch (err) {
+            console.error("Operation failed");
         }
-    } catch (err) {
-        console.error("Operation failed");
     }
 };
 
-const decompress = async (dirname, from, to) => {
+const decompress = async (dirname, args) => {
+    if (await checkArg(args.length, 2)) {
+        const pathToZlib = path.resolve(dirname, args[0]);
+        const nameFile = path.basename(args[0], ".br");
+        const pathToDecompress = path.resolve(dirname, args[1], nameFile);
 
-    const pathToZlib = path.resolve(dirname, from);
-    const nameFile = path.basename(from, ".br");
-    const pathToDecompress = path.resolve(dirname, to, nameFile);
+        try {
+            const stats = fs.statSync(pathToZlib);
+            if (stats.isFile()) {
+                const streamRead = fs.createReadStream(pathToZlib);
+                const transform = zlib.createBrotliDecompress();
+                const streamWrite = fs.createWriteStream(pathToDecompress);
 
-    try {
-        const stats = fs.statSync(pathToZlib);
-        if (stats.isFile()) {
-            const streamRead = fs.createReadStream(pathToZlib);
-            const transform = zlib.createBrotliDecompress();
-            const streamWrite = fs.createWriteStream(pathToDecompress);
-
-            stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
-        } else {
-            console.error("Invalid input");
+                stream.pipeline(streamRead, transform, streamWrite, err => { if (err) console.error("Operation failed"); });
+            } else {
+                console.error("Invalid input");
+            }
+        } catch (err) {
+            console.error("Operation failed");
         }
-    } catch (err) {
-        console.error("Operation failed");
     }
 };
 
