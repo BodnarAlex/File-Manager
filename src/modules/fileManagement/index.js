@@ -56,7 +56,6 @@ const removeFile = async (dirname, filename) => {
     }
 };
 
-
 const moveFile = async (dirname, fileCopy, fileTo) => {
     try {
         await copyFile(dirname, fileCopy, fileTo);
