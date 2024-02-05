@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPromise from "fs/promises";
 import path from "path";
 import zlib from "zlib";
 import stream from "stream";
@@ -10,7 +11,7 @@ const compress = async (dirname, args) => {
         const nameFile = path.basename(args[0]) + ".br";
         const pathToZlib = path.resolve(dirname, args[1], nameFile);
         try {
-            const stats = fs.statSync(pathToCompress);
+            const stats = await fsPromise.stat(pathToCompress);
             if (stats.isFile()) {
                 const streamRead = fs.createReadStream(pathToCompress);
                 const transform = zlib.createBrotliCompress();
@@ -33,7 +34,7 @@ const decompress = async (dirname, args) => {
         const pathToDecompress = path.resolve(dirname, args[1], nameFile);
 
         try {
-            const stats = fs.statSync(pathToZlib);
+            const stats = await fsPromise.stat(pathToZlib);
             if (stats.isFile()) {
                 const streamRead = fs.createReadStream(pathToZlib);
                 const transform = zlib.createBrotliDecompress();
