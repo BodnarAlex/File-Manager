@@ -29,6 +29,8 @@ const readFile = async (dirname, filename) => {
                 content.on('error', (err) => {
                     console.error("Operation failed");
                 });
+            } else {
+                console.error("Invalid input");
             }
         } catch (err) {
             console.error("Operation failed");
@@ -46,6 +48,8 @@ const renameFile = async (dirname, files) => {
                 const stats = await fsPromise.stat(pathOld);
                 if (stats.isFile()) {
                     await fsPromise.rename(pathOld, pathNew);
+                } else {
+                    console.error("Invalid input");
                 }
             } catch {
                 console.log('Operation failed')
@@ -68,6 +72,8 @@ const copyFile = async (dirname, files) => {
                 const copyFrom = fs.createReadStream(pathFrom, "utf-8");
                 const copyTo = fs.createWriteStream(pathTo, "utf-8");
                 await pipeline(copyFrom, copyTo);
+            } else {
+                console.error("Invalid input");
             }
         } catch (err) {
             console.error("Operation failed");
@@ -82,6 +88,8 @@ const removeFile = async (dirname, filename) => {
             const stats = await fsPromise.stat(pathToDelete);
             if (stats.isFile()) {
                 await fsPromise.unlink(pathToDelete);
+            } else {
+                console.error("Invalid input");
             }
         } catch (err) {
             console.error("Operation failed");
@@ -102,6 +110,8 @@ const moveFile = async (dirname, files) => {
                 const copyTo = fs.createWriteStream(pathTo, "utf-8");
                 await pipeline(copyFrom, copyTo);
                 await fsPromise.unlink(pathFrom);
+            } else {
+                console.error("Invalid input");
             }
         } catch (err) {
             console.error("Operation failed");

@@ -14,6 +14,8 @@ const calculateHash = async (dirname, filename) => {
                 const hash = createHash("sha256");
                 const resultString = hash.update(stream).digest('hex');
                 console.log(resultString);
+            } else {
+                console.error("Invalid input");
             }
         } catch (error) {
             console.error("Operation failed");
