@@ -1,9 +1,17 @@
+import { getEol } from "../os/index.js";
+const eol = await getEol();
+
 const getUserName = async () => {
     let userName = "";
     const args = process.argv;
-    for (let i = 0; i < args.length; i++){
-        if (args[i].startsWith("--") && args[i].includes("="))
-            userName = args[i].split("=")[1];
+    for (let i = 0; i < args.length; i++) {
+        if (args[i].startsWith("--") && args[i].includes("=")) {
+                let regexp = /(?<=["'])[^"']+/gm;
+                userName = args[i].match(regexp);
+            if(!userName) {
+                userName = args[i].split("=")[1];
+            }
+        }
     }
     if (userName === "" || userName === " ")
         userName = "Username";
@@ -13,18 +21,18 @@ const getUserName = async () => {
 
 const getGreeting = async () => {
     let userName = await getUserName();
-    let startPhrase = `Welcome to the File Manager, ${userName}!\n`;
+    let startPhrase = `Welcome to the File Manager, ${userName}!`;
     console.log(startPhrase);
 };
 
 const getFarewall = async () => {
     let userName = await getUserName();
-    let endPrase = `Thank you for using File Manager, ${userName}, goodbye!\n`;
+    let endPrase = `Thank you for using File Manager, ${userName}, goodbye!${eol}`;
     console.log(endPrase);
 };
 
 const getCwdPath = async (path) => {
-    console.log("\nYou are currently in " + path);
+    console.log(eol + "You are currently in " + path + eol);
 };
 
 const getCommand = async (text) => {
