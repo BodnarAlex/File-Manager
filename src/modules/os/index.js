@@ -11,7 +11,7 @@ const chooseAction = async (option) => {
                 getCpus();
                 break;
             case "--homedir":
-                gethomedir();
+                showhomedir();
                 break;
             case "--username":
                 getusername();
@@ -51,10 +51,19 @@ const getCpus = async () => {
     }
 };
 
-const gethomedir = async () => {
+const showhomedir = async () => {
     try {
         let homedir = os.homedir();
         console.log(homedir);
+    } catch {
+        console.error("Operation failed");
+    }
+};
+
+const gethomedir = async () => {
+    try {
+        let homedir = os.homedir();
+        return homedir;
     } catch {
         console.error("Operation failed");
     }
@@ -82,6 +91,7 @@ export {
     chooseAction,
     getEol,
     getCpus,
+    showhomedir,
     gethomedir,
     getusername,
     getArchitecture
