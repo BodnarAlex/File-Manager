@@ -34,7 +34,6 @@ const renameFile = async (dirname, files) => {
         const pathOld = path.resolve(dirname, files[0]);
         const filename = path.basename(files[1]);
         const pathNew = path.resolve(dirname, files[0], "..", filename);
-        console.log("pathNew ", pathNew)
         try {
             await fsPromise.rename(pathOld, pathNew);
         } catch {

@@ -1,12 +1,10 @@
 const getUserName = async () => {
     let userName = "";
     const args = process.argv;
-    for (let i = 0; i < args.length; i++)
+    for (let i = 0; i < args.length; i++){
         if (args[i].startsWith("--") && args[i].includes("="))
             userName = args[i].split("=")[1];
-        else
-            userName = "Username";
-
+    }
     if (userName === "" || userName === " ")
         userName = "Username";
 
