@@ -6,7 +6,7 @@ import help from "../startManagement/index.js"
 
 const addFile = async (dirname, filename) => {
     if (await help.checkArg(filename.length, 1)) {
-        const PathTo = path.join(dirname, filename[0]);
+        const PathTo = path.resolve(dirname, filename[0]);
         await fsPromise.writeFile(PathTo, "", { flag: "wx" }, (err) => {
             if (err) console.error("Operation failed");
         });
@@ -15,7 +15,7 @@ const addFile = async (dirname, filename) => {
 
 const readFile = async (dirname, filename) => {
     if (await help.checkArg(filename.length, 1)) {
-        const pathToRead = path.join(dirname, filename[0]);
+        const pathToRead = path.resolve(dirname, filename[0]);
         try {
             const content = fs.createReadStream(pathToRead, { encoding: 'utf-8' });
             await pipeline(content, process.stdout, { end: false });
@@ -32,7 +32,9 @@ const readFile = async (dirname, filename) => {
 const renameFile = async (dirname, files) => {
     if (await help.checkArg(files.length, 2)) {
         const pathOld = path.resolve(dirname, files[0]);
-        const pathNew = path.resolve(dirname, files[1]);
+        const filename = path.basename(files[1]);
+        const pathNew = path.resolve(dirname, files[0], "..", filename);
+        console.log("pathNew ", pathNew)
         try {
             await fsPromise.rename(pathOld, pathNew);
         } catch {
@@ -44,7 +46,8 @@ const renameFile = async (dirname, files) => {
 const copyFile = async (dirname, files) => {
     if (await help.checkArg(files.length, 2)) {
         const pathFrom = path.resolve(dirname, files[0]);
-        const pathTo = path.resolve(dirname, files[1], files[0]);
+        const filename = path.basename(files[0]);
+        const pathTo = path.resolve(dirname, files[1], filename);
 
         try {
             const copyFrom = fs.createReadStream(pathFrom, "utf-8");

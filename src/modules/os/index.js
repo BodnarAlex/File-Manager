@@ -5,7 +5,7 @@ const chooseAction = async (option) => {
     if (await help.checkArg(option.length, 1)) {
         switch (option[0]) {
             case "--EOL":
-                getEol();
+                showEol();
                 break;
             case "--cpus":
                 getCpus();
@@ -26,10 +26,20 @@ const chooseAction = async (option) => {
     }
 };
 
-const getEol = async () => {
+
+const showEol = async () => {
     try {
         let eol = JSON.stringify(os.EOL);
         console.log(eol);
+    } catch {
+        console.error("Operation failed");
+    }
+};
+
+const getEol = async () => {
+    try {
+        let eol = os.EOL;
+        return eol;
     } catch {
         console.error("Operation failed");
     }
@@ -89,6 +99,7 @@ const getArchitecture = async () => {
 
 export {
     chooseAction,
+    showEol,
     getEol,
     getCpus,
     showhomedir,

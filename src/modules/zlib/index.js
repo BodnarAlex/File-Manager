@@ -27,7 +27,7 @@ const compress = async (dirname, args) => {
 };
 
 const decompress = async (dirname, args) => {
-    if (await checkArg(args.length, 2)) {
+    if (await help.checkArg(args.length, 2)) {
         const pathToZlib = path.resolve(dirname, args[0]);
         const nameFile = path.basename(args[0], ".br");
         const pathToDecompress = path.resolve(dirname, args[1], nameFile);
