@@ -92,3 +92,19 @@ For example, this function unpacks a file from the file directory to where you a
  ```bash
 - cd src\files
 ```
+8. For rename, enter the path and file name. Two ways in arguments will lead to errors.
+
+It is good:
+ ```bash
+- rn src\files\c.txt d.txt
+```
+
+Is is not:
+ ```bash
+- rn src\files\c.txt src\files\d.txt
+```
+
+8. Entering folder names instead of file names will result in an error:
+ ```bash
+- Invalid input
+```
