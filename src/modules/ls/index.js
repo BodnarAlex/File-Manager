@@ -4,7 +4,7 @@ const showTable = async (dirname) => {
     try {
         let resCatalog = [];
         let resFiles = [];
-        const files = await fs.readdir(dirname, { withFileTypes: true, recursive: true });
+        const files = await fs.readdir(dirname, { withFileTypes: true});
         files.forEach(file => {
             if (file.isFile())
                 resFiles.push(file.name);
