@@ -37,9 +37,9 @@ or
 
 3. The program implements catching arguments using the following methods:
  ```bash
-- rename text.txt textNew.txt
-- rename 'text.txt' 'text New.txt'
-- rename "text.txt" "text New.txt"
+- rn text.txt textNew.txt
+- rn 'text.txt' 'text New.txt'
+- rn "text.txt" "text New.txt"
 ```
 
 ! Mixing spaces and quotes is not allowed.
@@ -47,9 +47,9 @@ or
 
 There's no need to do this:
 ```bash
-- rename text.txt text New.txt
-- rename text.txt 'text New.txt'
-- rename 'text.txt' "text New.txt"
+- rn text.txt text New.txt
+- rn text.txt 'text New.txt'
+- rn 'text.txt' "text New.txt"
 ```
 
 If spaces are used in only one of several arguments, all arguments must also be wrapped in quotes.
