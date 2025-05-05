@@ -7,7 +7,6 @@ import { compress, decompress } from "./modules/zlib/index.js";
 import { changeDir } from "./modules/pathManagement/index.js";
 import { gethomedir } from "./modules/os/index.js";
 
-
 import readline from "readline/promises";
 import process from "process";
 
@@ -25,7 +24,7 @@ const start = async () => {
         } else {
             let command = await help.getCommand(text);
             let option = await help.getArg(text);
-             mainPath = process.cwd();
+            mainPath = process.cwd();
 
             switch (command) {
                 case "ls":
@@ -39,6 +38,9 @@ const start = async () => {
                     break;
                 case "add":
                     await action.addFile(mainPath, option);
+                    break;
+                case "mkdir":
+                    await action.addDirectory(mainPath, option);
                     break;
                 case "cat":
                     await action.readFile(mainPath, option);

@@ -17,6 +17,20 @@ const addFile = async (dirname, filename) => {
     }
 };
 
+const addDirectory = async (dirname, foldername) => {
+    if (await help.checkArg(foldername.length, 1)) {
+        try {
+            console.log(foldername);
+            const PathTo = path.resolve(dirname, foldername[0]);
+            await fsPromise.mkdir(PathTo, { recursive: false }, (err) => {
+                if (err) console.error("Operation failed");
+            });
+        } catch (err) {
+            console.error("Operation failed");
+        }
+    }
+};
+
 const readFile = async (dirname, filename) => {
     if (await help.checkArg(filename.length, 1)) {
         const pathToRead = path.resolve(dirname, filename[0]);
@@ -121,6 +135,7 @@ const moveFile = async (dirname, files) => {
 
 export default {
     addFile,
+    addDirectory,
     readFile,
     renameFile,
     copyFile,
