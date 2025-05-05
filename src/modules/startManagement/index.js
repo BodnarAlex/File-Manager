@@ -29,6 +29,7 @@ const getFarewall = async () => {
     let userName = await getUserName();
     let endPrase = `Thank you for using File Manager, ${userName}, goodbye!${eol}`;
     console.log(endPrase);
+    process.exit(0);
 };
 
 const getCwdPath = async (path) => {
